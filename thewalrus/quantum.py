@@ -331,8 +331,7 @@ def density_matrix_element(mu, cov, i, j, include_prefactor=True, tol=1e-10, hba
             haf = hafnian_repeated(A, rpt)
     else:
         # replace the diagonal of A with gamma
-        # gamma = X @ np.linalg.inv(Q).conj() @ beta
-        gamma = beta.conj() - A @ beta
+        gamma = np.linalg.inv(Qmat(cov)) @ beta.conj()
         if np.prod([k + 1 for k in rpt]) ** (1 / len(rpt)) < 3:
             A_rpt = reduction(A, rpt)
             np.fill_diagonal(A_rpt, reduction(gamma, rpt))
